@@ -93,7 +93,7 @@ const Calendar = ({date, setDate, holidayDateList, blockedDateList}) => {
               key={day}
               className={[
                 styles.dateCell,
-                isPast || isBlocked ? styles.disabled : '',
+                isPast || isBlocked || isHoliday ? styles.disabled : '',
                 isSelected ? styles.selected : '',
                 isToday && !isSelected ? styles.today : '',
                 isSun && !isSelected && !isPast ? styles.sun : '',
@@ -105,6 +105,7 @@ const Calendar = ({date, setDate, holidayDateList, blockedDateList}) => {
               >
               {day}
               {isHoliday && !isPast && <span className={styles.holidayDot} />}
+              {isBlocked && !isPast && <span className={styles.blockedDot} />}
             </button>
           )
         })}
