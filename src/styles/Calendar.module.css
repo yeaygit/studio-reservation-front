@@ -1,0 +1,235 @@
+/* ────────────────────────────────
+   Calendar wrapper
+──────────────────────────────── */
+.calendarWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 420px;
+  animation: fadeUp 0.25s var(--ease);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ────────────────────────────────
+   Header
+──────────────────────────────── */
+.calHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.calTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 20px;      /* 년도 크기 */
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.calMonth {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 20px;      /* 년도 크기 */
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.navBtn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--ink-muted);
+  transition: background 0.15s var(--ease), color 0.15s var(--ease),
+    border-color 0.15s var(--ease);
+}
+
+.navBtn:hover {
+  background: var(--accent-soft);
+  color: var(--ink);
+  border-color: rgba(0, 0, 0, 0.14);
+}
+
+/* ────────────────────────────────
+   Day labels
+──────────────────────────────── */
+.dayRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.dayLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  padding: 6px 0;
+  text-transform: uppercase;
+}
+
+/* ────────────────────────────────
+   Date grid
+──────────────────────────────── */
+.dateGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.dateCell {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease),
+    transform 0.12s var(--ease);
+  letter-spacing: -0.01em;
+}
+
+.dateCell:hover:not(.disabled) {
+  background: var(--accent-soft);
+}
+
+/* 오늘 */
+.today {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.today::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+/* 선택됨 */
+.selected {
+  background: var(--ink) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.selected::after {
+  display: none;
+}
+
+/* 비활성 */
+.disabled {
+  color: var(--ink-faint);
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* 일요일 / 토요일 */
+.sun {
+  color: #d85a5a;
+}
+
+.sat {
+  color: #5a7fd8;
+}
+
+/* 예약 마감 점 */
+.blockedDot {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ink-faint);
+}
+
+/* ────────────────────────────────
+   Legend
+──────────────────────────────── */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 4px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.legendDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 휴일/휴무 */
+.holiday {
+  color: #d85a5a;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.holidayDot {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #d85a5a;
+}
+
+/* ────────────────────────────────
+   Mobile
+──────────────────────────────── */
+@media (max-width: 768px) {
+  .calendarWrap {
+    max-width: 100%;
+  }
+
+  .calMonth {
+    font-size: 20px;
+  }
+
+  .dateCell {
+    font-size: 13px;
+    border-radius: 8px;
+  }
+}

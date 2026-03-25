@@ -6,7 +6,6 @@
 }
 
 body{
-  overflow: hidden;
   font-family: 'Pretendard';
 }
 body::-webkit-scrollbar{

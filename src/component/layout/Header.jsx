@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import logo from '../../assets/logo/testLogo.jpg'
+import logo from '../../assets/logo/romiLogo.jpg'
 import { Menu } from 'lucide-react'
 import Sidebar from './Sidebar'
 import { useNavigate } from 'react-router'
@@ -78,7 +78,7 @@ const Header = ({sidebarOpen, setSidebarOpen}) => {
     <div className='header' ref={headerRef}>
       <div className="header-brand">
         <img src={logo} className="header-logo" alt="logo" />
-        <span className="header-title">photo studio</span>
+        <span className="header-title">Romi studio</span>
       </div>
       <nav className="header-nav">
         {MENUS.map(({ label, items, path }) => {

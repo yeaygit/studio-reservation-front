@@ -1,0 +1,258 @@
+.layout{
+  width: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 20px;
+}
+
+.title{
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.content{
+  width: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.step {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.btnGroup{
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnGroupEnd{
+  display: flex;
+  justify-content: end;
+}
+
+.prevBtn,
+.nextBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s;
+  border: none;
+}
+
+.prevBtn {
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #888884;
+}
+
+.prevBtn:hover {
+  background: #f0f0ee;
+  color: #111110;
+}
+
+.nextBtn {
+  background: #111110;
+  color: #fff;
+}
+
+.nextBtn:hover {
+  background: #2a2a28;
+}
+
+
+/*
+  Reservation Type css
+*/
+.typeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.typeCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: var(--bg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.typeCard:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: #fff;
+}
+
+.typeCardSelected {
+  border-color: var(--ink) !important;
+  background: #fff !important;
+}
+
+.typeCheck {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+}
+
+.typeCheckVisible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.typeCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-right: 28px; /* 체크 뱃지 공간 */
+}
+
+.typeLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.typePrice {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.typeDesc {
+  font-size: 12.5px;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+.typeMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.typeMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+/*
+  Reservation Schedule css
+*/
+.sectionSchedule{
+  display: flex;
+  flex: 1;
+  gap: 80px;
+}
+.inputItem{
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ────────────────────────────────
+   Mobile
+──────────────────────────────── */
+@media (max-width: 768px) {
+  .typeGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .typeCard {
+    flex-direction: row;       /* 세로 → 가로 */
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .typeCardTop {
+    flex-direction: column;
+    padding-right: 0;
+    gap: 2px;
+    flex: 1;
+  }
+
+  .typeCheck {
+    position: static;          /* absolute 해제 */
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transform: scale(0.6);     /* 선택 안됐을 때 작게 */
+    background: transparent;
+    border: 1.5px solid var(--ink-faint);
+  }
+
+  .typeCheckVisible {
+    background: var(--ink);
+    border-color: var(--ink);
+    transform: scale(1);
+  }
+
+  .typeDesc {
+    display: none;             /* 모바일에서 설명 숨기기 */
+  }
+
+  .typeMeta {
+    border-top: none;
+    padding-top: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .typeTitle {
+    font-size: 17px;
+  }
+}
