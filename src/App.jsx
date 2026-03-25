@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import Header from './component/layout/Header'
 import './App.css'
 import Body from './component/layout/Body'
-import Footer from './component/layout/Footer'
 import Sidebar from './component/layout/Sidebar'
-import { Menu } from 'lucide-react'
+import Footer from './component/layout/Footer'
 
 function App() {
 
@@ -33,6 +32,7 @@ function App() {
       }
       <Body/>
       <Footer/>
+
     </div>
   )
 }
