@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import logo from '../../assets/logo/romiLogo.jpg'
 import { Menu } from 'lucide-react'
-import Sidebar from './Sidebar'
 import { useNavigate } from 'react-router'
 
 const MENUS = [
