@@ -279,16 +279,40 @@
   padding: 0 100px;
 }
 
+/* Footer 관리자 버튼 */
 .footer {
-  flex-shrink: 0;
-  height: 120px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  background-color: #bbbbb93a;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 32px 20px;
+}
+
+.footer-admin-btn {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-faint);        /* #c4c4c0 - 거의 안 보이는 색 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: color 0.18s var(--ease), background 0.18s var(--ease);
+}
+
+.footer-admin-btn:hover {
+  color: var(--ink-muted);        /* 호버 시에만 살짝 진해짐 */
+  background: var(--accent-soft);
 }
 
 /* ────────────────────────────────
    Mobile
 ──────────────────────────────── */
+.footer-admin-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 @media (max-width: 768px) {
   .header-nav {
     display: none;
