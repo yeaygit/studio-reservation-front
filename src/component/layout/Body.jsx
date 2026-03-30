@@ -1,22 +1,21 @@
-import React from 'react'
-import { Routes, Route } from 'react-router'
-import IntroPage from '../../pages/IntroPage'
-import ReservationPage from '../../pages/ReservationPage'
-import ReservationCheckPage from '../../pages/ReservationCheckPage'
-import PricingPage from '../../pages/PricingPage'
-import ShootingTypePage from '../../pages/ShootingTypePage'
-import LoginPage from '../../pages/LoginPage'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import useAuthStore, { selectIsAuthenticated } from '../../store/useAuthStore'
+import { adminFallbackPath, adminRouteConfigs } from '../../routes/adminRouteConfigs'
+import { publicFallbackPath, publicRouteConfigs } from '../../routes/publicRouteConfigs'
 
 const Body = () => {
+  const isAuthenticated = useAuthStore(selectIsAuthenticated)
+  const routeConfigs = isAuthenticated ? adminRouteConfigs : publicRouteConfigs
+  const fallbackPath = isAuthenticated ? adminFallbackPath : publicFallbackPath
+
   return (
-    <div className='body'>
+    <div className="body">
       <Routes>
-        <Route path='/' element={<IntroPage />}/>
-        <Route path="/service/type" element={<ShootingTypePage />} />
-        <Route path="/service/pricing" element={<PricingPage />} />
-        <Route path="/reservation/check" element={<ReservationCheckPage />} />
-        <Route path="/reservation" element={<ReservationPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        {routeConfigs.map(({ path, component: Component, props }) => (
+          <Route key={path} path={path} element={<Component {...props} />} />
+        ))}
+        {isAuthenticated && <Route path="/login" element={<Navigate to="/admin" replace />} />}
+        <Route path="*" element={<Navigate to={fallbackPath} replace />} />
       </Routes>
     </div>
   )

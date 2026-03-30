@@ -1,17 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from '../styles/LoginPage.module.css'
-import { login } from '../utils/auth'
-
+import useAuthStore from '../store/useAuthStore'
 
 const LoginPage = () => {
   const navigate = useNavigate()
-  const [form, setForm] = useState(
-    {
-      username: '',
-      password: '',
-    }
-  )
+  const login = useAuthStore((state) => state.login)
+  const [form, setForm] = useState({
+    username: '',
+    password: '',
+  })
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -37,22 +35,13 @@ const LoginPage = () => {
     setSuccessMessage('')
 
     try {
-      const data = await login({
+      await login({
         username: form.username.trim(),
         password: form.password,
       })
 
-      const accessToken =
-        data?.accessToken ??
-        data?.data?.accessToken ??
-        data?.result?.accessToken
-
-      if (accessToken) {
-        sessionStorage.setItem('Access', accessToken)
-      }
-
-      setSuccessMessage(data?.message ?? '로그인에 성공했습니다.')
-      navigate('/')
+      setSuccessMessage('로그인에 성공했습니다.')
+      navigate('/admin')
     } catch (error) {
       setErrorMessage(error.message)
     } finally {

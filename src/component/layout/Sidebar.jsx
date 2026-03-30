@@ -1,47 +1,55 @@
-import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { adminMenus, publicMenus } from '../../constants/navigation'
+import useAuthStore, { selectIsAuthenticated } from '../../store/useAuthStore'
 
-const MENUS = [
-  {
-    label: '소개',
-    items: ['공간 & 시설 안내', '포트폴리오 갤러리', '공지사항 & FAQ'],
-  },
-  {
-    label: '서비스',
-    items: ['촬영 종류 안내', '요금표', '의상 & 소품 안내'],
-  },
-  {
-    label: '예약확인',
-    items: ['예약 조회'],
-  },
-  {
-    label: '예약하기',
-    items: ['예약 하기'],
-  },
-]
+const Sidebar = ({ setSidebarOpen }) => {
+  const navigate = useNavigate()
+  const isAuthenticated = useAuthStore(selectIsAuthenticated)
 
-const Sidebar = ({setSidebarOpen}) => {
+  const menus = isAuthenticated ? adminMenus : publicMenus
+
+  const navigateToMenuItem = (item) => {
+    setSidebarOpen(false)
+
+    if (item.id) {
+      navigate('/')
+      setTimeout(() => {
+        document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })
+      }, 100)
+      return
+    }
+
+    if (item.path) {
+      navigate(item.path)
+    }
+  }
+
   return (
-    <div className='sidebar-bg' onClick={() => setSidebarOpen(false)}>
-      <div className='sidebar' onClick={(e) => e.stopPropagation()}>    
+    <div className="sidebar-bg" onClick={() => setSidebarOpen(false)}>
+      <div className="sidebar" onClick={(event) => event.stopPropagation()}>
         <nav className="sidebar-nav">
-          {MENUS.map(({ label, items }) => (
-            <div key={label} className="sidebar-section">
-              <button
-                className="sidebar-label"
-                onClick={() => {
-                  if (!items.length) setSidebarOpen(false)
-                  // TODO: navigate
-                }}
-              >
-                {label}
-              </button>
-              {items.map((item) => (
+          {menus.map((menu) => (
+            <div key={menu.label} className="sidebar-section">
+              {menu.path ? (
                 <button
-                  key={item}
-                  className="sidebar-item"
-                  onClick={() => setSidebarOpen(false)}
+                  className="sidebar-label"
+                  onClick={() => navigateToMenuItem(menu)}
+                  type="button"
                 >
-                  {item}
+                  {menu.label}
+                </button>
+              ) : (
+                <div className="sidebar-label">{menu.label}</div>
+              )}
+
+              {menu.items.map((item) => (
+                <button
+                  key={item.label}
+                  className="sidebar-item"
+                  onClick={() => navigateToMenuItem(item)}
+                  type="button"
+                >
+                  {item.label}
                 </button>
               ))}
             </div>

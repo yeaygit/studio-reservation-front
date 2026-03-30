@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router'
-import { logout } from '../../utils/auth'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useAuthStore, { selectIsAuthenticated } from '../../store/useAuthStore'
 
 const Footer = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-  const [hasAccessToken, setHasAccessToken] = useState(() => Boolean(sessionStorage.getItem('Access')))
+  const isAuthenticated = useAuthStore(selectIsAuthenticated)
+  const logout = useAuthStore((state) => state.logout)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  useEffect(() => {
-    setHasAccessToken(Boolean(sessionStorage.getItem('Access')))
-  }, [location.pathname])
-
   const handleAuthButtonClick = async () => {
-    if (!hasAccessToken) {
+    if (!isAuthenticated) {
       navigate('/login')
       return
     }
@@ -22,7 +18,6 @@ const Footer = () => {
 
     try {
       await logout()
-      setHasAccessToken(false)
       navigate('/login')
     } catch (error) {
       window.alert(error.message)
@@ -32,15 +27,26 @@ const Footer = () => {
   }
 
   return (
-    <div className='footer'>
-      <button
-        className='footer-admin-btn'
-        onClick={handleAuthButtonClick}
-        disabled={isSubmitting}
-      >
-        {hasAccessToken ? '로그아웃' : '관리자 로그인'}
-      </button>
-    </div>
+    <footer className="footer">
+      <div className="footer-shell">
+        <div className="footer-copy">
+          <span className="footer-kicker">ROMI STUDIO</span>
+          <strong className="footer-title">Studio Reservation</strong>
+          <p className="footer-text">촬영 예약 및 스튜디오 이용 안내</p>
+        </div>
+
+        <div className="footer-actions">
+          <button
+            className={`footer-action-btn ${isAuthenticated ? 'footer-action-btn--logout' : ''}`}
+            onClick={handleAuthButtonClick}
+            disabled={isSubmitting}
+            type="button"
+          >
+            {isSubmitting ? '처리 중...' : isAuthenticated ? '로그아웃' : '관리자 로그인'}
+          </button>
+        </div>
+      </div>
+    </footer>
   )
 }
 

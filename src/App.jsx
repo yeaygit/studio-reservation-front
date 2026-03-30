@@ -6,33 +6,45 @@ import Sidebar from './component/layout/Sidebar'
 import Footer from './component/layout/Footer'
 
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  // 화면 크기 바뀔 때 768px 이상이면 사이드바 닫기
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setSidebarOpen(false);
+        setSidebarOpen(false)
       }
-    };
+    }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    handleResize()
+    window.addEventListener('resize', handleResize)
 
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow
+    const previousHtmlOverflow = document.documentElement.style.overflow
+
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+    }
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow
+      document.documentElement.style.overflow = previousHtmlOverflow
+    }
+  }, [sidebarOpen])
 
   return (
     <div className="app">
-      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
-      {
-        sidebarOpen && (
-          <Sidebar setSidebarOpen={setSidebarOpen}/>
-        )
-      }
-      <Body/>
-      <Footer/>
-
+      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      {sidebarOpen && <Sidebar setSidebarOpen={setSidebarOpen} />}
+      <Body />
+      <Footer />
     </div>
   )
 }
