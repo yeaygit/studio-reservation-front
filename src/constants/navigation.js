@@ -31,7 +31,7 @@ export const publicMenus = [
     items: [
       { label: '공간 & 시설 안내', id: 'facility' },
       { label: '포트폴리오 갤러리', id: 'gallery' },
-      { label: '공지사항 & FAQ', id: 'notice' },
+      { label: '공지사항', id: 'notice' },
       { label: 'FAQ', id: 'faq' },
     ],
     path: '/',

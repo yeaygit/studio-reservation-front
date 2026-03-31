@@ -3,6 +3,8 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL ?? '/api'
+const AUTH_STORAGE_KEY = 'studio-auth'
+const authStorage = createJSONStorage(() => sessionStorage)
 
 const authAxios = axios.create({
   baseURL: API_BASE_URL,
@@ -12,6 +14,10 @@ const authAxios = axios.create({
 const initialState = {
   accessToken: '',
   member: null,
+}
+
+const clearPersistedAuth = () => {
+  authStorage.removeItem(AUTH_STORAGE_KEY)
 }
 
 const useAuthStore = create(
@@ -29,7 +35,10 @@ const useAuthStore = create(
           member: state.member,
         })),
       setMember: (member) => set({ member }),
-      clearAuth: () => set(initialState),
+      clearAuth: () => {
+        set(initialState)
+        clearPersistedAuth()
+      },
       login: async ({ username, password }) => {
         const payload = { username, password }
 
@@ -65,6 +74,7 @@ const useAuthStore = create(
 
           await authAxios.post('/auth/logout', null, { headers })
           set(initialState)
+          clearPersistedAuth()
         } catch (error) {
           const message =
             error?.response?.data?.errorMessage ??
@@ -75,8 +85,8 @@ const useAuthStore = create(
       },
     }),
     {
-      name: 'studio-auth',
-      storage: createJSONStorage(() => sessionStorage),
+      name: AUTH_STORAGE_KEY,
+      storage: authStorage,
       partialize: ({ accessToken, member }) => ({ accessToken, member }),
     },
   ),
