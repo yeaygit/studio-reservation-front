@@ -2,6 +2,7 @@ import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
 import AdminPlaceholderPage from '../pages/admin/AdminPlaceholderPage'
 import FaqManagementPage from '../pages/faq/FaqManagementPage'
 import NoticeManagementPage from '../pages/notice/NoticeManagementPage'
+import ClosedDaysPage from '../pages/setting/ClosedDaysPage'
 import StudioSettingPage from '../pages/setting/StudioSettingPage'
 
 export const adminRouteConfigs = [
@@ -35,7 +36,7 @@ export const adminRouteConfigs = [
     path: '/admin/holidays',
     label: '휴일 관리',
     description: '정기 휴무일과 임시 휴무일을 등록하고 노출합니다.',
-    component: AdminPlaceholderPage,
+    component: ClosedDaysPage,
     props: {
       title: '휴일 관리',
       description: '정기 휴무일과 임시 휴무일을 등록하고 노출합니다.',
