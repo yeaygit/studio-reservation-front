@@ -2,6 +2,7 @@ import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
 import AdminPlaceholderPage from '../pages/admin/AdminPlaceholderPage'
 import FaqManagementPage from '../pages/faq/FaqManagementPage'
 import NoticeManagementPage from '../pages/notice/NoticeManagementPage'
+import StudioSettingPage from '../pages/setting/StudioSettingPage'
 
 export const adminRouteConfigs = [
   {
@@ -24,7 +25,7 @@ export const adminRouteConfigs = [
     path: '/admin/reservation-settings',
     label: '예약 시간 설정',
     description: '예약 가능한 시간대와 기본 운영 슬롯을 설정합니다.',
-    component: AdminPlaceholderPage,
+    component: StudioSettingPage,
     props: {
       title: '예약 시간 설정',
       description: '예약 가능한 시간대와 기본 운영 슬롯을 설정합니다.',
