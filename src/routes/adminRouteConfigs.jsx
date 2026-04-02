@@ -3,6 +3,7 @@ import AdminPlaceholderPage from '../pages/admin/AdminPlaceholderPage'
 import FaqManagementPage from '../pages/faq/FaqManagementPage'
 import NoticeManagementPage from '../pages/notice/NoticeManagementPage'
 import ClosedDaysPage from '../pages/setting/ClosedDaysPage'
+import PhotoTypeSettingPage from '../pages/setting/PhotoTypeSettingPage'
 import StudioSettingPage from '../pages/setting/StudioSettingPage'
 
 export const adminRouteConfigs = [
@@ -86,11 +87,11 @@ export const adminRouteConfigs = [
   },
   {
     path: '/admin/photo-types',
-    label: '사진 type 설정',
+    label: '사진 타입 설정',
     description: '촬영 타입과 사진 분류 옵션을 설정합니다.',
-    component: AdminPlaceholderPage,
+    component: PhotoTypeSettingPage,
     props: {
-      title: '사진 type 설정',
+      title: '사진 타입 설정',
       description: '촬영 타입과 사진 분류 옵션을 설정합니다.',
     },
   },

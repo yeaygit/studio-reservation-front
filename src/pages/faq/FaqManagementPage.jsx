@@ -1,16 +1,10 @@
 import { useDeferredValue, useEffect, useState } from 'react'
 import { ArrowUpRight, FileQuestion, Plus, Search, Sparkles } from 'lucide-react'
 import customAxios from '../../utils/customAxios'
+import { CRUD_PAGE_MODES as FAQ_MODES } from '../../constants/pageModes'
 import FaqDetail from '../../component/faq/FaqDetail'
 import FaqForm from '../../component/faq/FaqForm'
 import styles from '../../styles/FaqManagementPage.module.css'
-
-const FAQ_MODES = {
-  LIST: 'list',
-  DETAIL: 'detail',
-  CREATE: 'create',
-  EDIT: 'edit',
-}
 
 const INITIAL_FORM = {
   question: '',
@@ -210,7 +204,6 @@ const FaqManagementPage = () => {
     <section className={styles.page}>
       <div className={styles.hero}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>FAQ OPERATIONS</p>
           <h1 className={styles.title}>FAQ 관리</h1>
           <p className={styles.description}>자주 묻는 질문을 관리할 수 있습니다.</p>
         </div>
@@ -307,7 +300,7 @@ const FaqManagementPage = () => {
                       </p>
 
                       <div className={styles.listCardMeta}>
-                        <span>ID {faq.id}</span>
+                        <span></span>
                         <span>{faq.createdAt}</span>
                       </div>
                     </button>

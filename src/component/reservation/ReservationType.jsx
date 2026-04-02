@@ -58,7 +58,7 @@ const ReservationType = ({form, setForm, typeList}) => {
                 </span>
                 <span className={styles.typeMetaItem}>
                   <Users size={12} />
-                  {type.min === type.max ? `${type.min}인` : `${type.min}~${type.max}인`}
+                  1인
                 </span>
               </div>
             </button>

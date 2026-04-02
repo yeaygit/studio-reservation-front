@@ -1,0 +1,114 @@
+.typeCard {
+  gap: 14px;
+}
+
+.cardTop,
+.titleRow,
+.metaRow,
+.noteCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cardTop,
+.metaRow {
+  flex-wrap: wrap;
+}
+
+.codeBadge,
+.orderBadge,
+.metaChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.codeBadge {
+  background: rgba(17, 17, 16, 0.06);
+  color: #5f5a52;
+}
+
+.orderBadge {
+  background: rgba(241, 238, 232, 0.92);
+  color: #7a7064;
+}
+
+.titleRow {
+  align-items: flex-start;
+}
+
+.price {
+  flex-shrink: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: #111110;
+}
+
+.metaChip {
+  background: #ffffff;
+  border: 1px solid rgba(17, 17, 16, 0.08);
+  color: #4b463f;
+}
+
+.noteGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.noteCard {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 18px;
+  border-radius: 18px;
+  background: #fafaf8;
+  border: 1px solid rgba(17, 17, 16, 0.08);
+}
+
+.noteIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(17, 17, 16, 0.06);
+  color: #3d3933;
+  flex-shrink: 0;
+}
+
+.noteBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.noteTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111110;
+}
+
+.noteText {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #5d5750;
+}
+
+@media (max-width: 900px) {
+  .noteGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .titleRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
