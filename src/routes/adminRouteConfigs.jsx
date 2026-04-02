@@ -5,6 +5,7 @@ import NoticeManagementPage from '../pages/notice/NoticeManagementPage'
 import ClosedDaysPage from '../pages/setting/ClosedDaysPage'
 import PhotoTypeSettingPage from '../pages/setting/PhotoTypeSettingPage'
 import StudioSettingPage from '../pages/setting/StudioSettingPage'
+import TermsManagementPage from '../pages/terms/TermsManagementPage'
 
 export const adminRouteConfigs = [
   {
@@ -67,7 +68,7 @@ export const adminRouteConfigs = [
     path: '/admin/terms',
     label: '약관 관리',
     description: '예약 약관과 동의 문구를 수정하고 버전을 관리합니다.',
-    component: AdminPlaceholderPage,
+    component: TermsManagementPage,
     props: {
       title: '약관 관리',
       description: '예약 약관과 동의 문구를 수정하고 버전을 관리합니다.',
