@@ -2,6 +2,9 @@ import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
 import AdminPlaceholderPage from '../pages/admin/AdminPlaceholderPage'
 import FaqManagementPage from '../pages/faq/FaqManagementPage'
 import NoticeManagementPage from '../pages/notice/NoticeManagementPage'
+import ClosedDaysPage from '../pages/setting/ClosedDaysPage'
+import PhotoTypeSettingPage from '../pages/setting/PhotoTypeSettingPage'
+import StudioSettingPage from '../pages/setting/StudioSettingPage'
 
 export const adminRouteConfigs = [
   {
@@ -24,7 +27,7 @@ export const adminRouteConfigs = [
     path: '/admin/reservation-settings',
     label: '예약 시간 설정',
     description: '예약 가능한 시간대와 기본 운영 슬롯을 설정합니다.',
-    component: AdminPlaceholderPage,
+    component: StudioSettingPage,
     props: {
       title: '예약 시간 설정',
       description: '예약 가능한 시간대와 기본 운영 슬롯을 설정합니다.',
@@ -34,7 +37,7 @@ export const adminRouteConfigs = [
     path: '/admin/holidays',
     label: '휴일 관리',
     description: '정기 휴무일과 임시 휴무일을 등록하고 노출합니다.',
-    component: AdminPlaceholderPage,
+    component: ClosedDaysPage,
     props: {
       title: '휴일 관리',
       description: '정기 휴무일과 임시 휴무일을 등록하고 노출합니다.',
@@ -84,11 +87,11 @@ export const adminRouteConfigs = [
   },
   {
     path: '/admin/photo-types',
-    label: '사진 type 설정',
+    label: '사진 타입 설정',
     description: '촬영 타입과 사진 분류 옵션을 설정합니다.',
-    component: AdminPlaceholderPage,
+    component: PhotoTypeSettingPage,
     props: {
-      title: '사진 type 설정',
+      title: '사진 타입 설정',
       description: '촬영 타입과 사진 분류 옵션을 설정합니다.',
     },
   },

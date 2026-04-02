@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'lucide-react'
 import logo from '../../assets/logo/romiLogo.jpg'
-import { adminMenus, publicMenus } from '../../constants/navigation'
+import { adminMenus, publicMenus } from '../../routes/navigation'
 import useAuthStore, { selectIsAuthenticated } from '../../store/useAuthStore'
 
 const Header = ({ sidebarOpen, setSidebarOpen }) => {

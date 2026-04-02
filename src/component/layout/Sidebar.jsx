@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { adminMenus, publicMenus } from '../../constants/navigation'
+import { adminMenus, publicMenus } from '../../routes/navigation'
 import useAuthStore, { selectIsAuthenticated } from '../../store/useAuthStore'
 
 const Sidebar = ({ setSidebarOpen }) => {

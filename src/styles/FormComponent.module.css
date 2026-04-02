@@ -1,0 +1,47 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #48423a;
+}
+
+.input,
+.select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid rgba(17, 17, 16, 0.12);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fcfcfb);
+  color: #111110;
+  font-family: 'Pretendard';
+  font-size: 14px;
+  line-height: 1.6;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.select {
+  appearance: none;
+  background:
+    linear-gradient(45deg, transparent 50%, #7d766c 50%) calc(100% - 20px) calc(50% - 2px) / 6px 6px no-repeat,
+    linear-gradient(135deg, #7d766c 50%, transparent 50%) calc(100% - 14px) calc(50% - 2px) / 6px 6px no-repeat,
+    linear-gradient(180deg, #ffffff, #fcfcfb);
+  padding-right: 40px;
+}
+
+.input:hover,
+.select:hover {
+  border-color: rgba(17, 17, 16, 0.18);
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: rgba(17, 17, 16, 0.24);
+  box-shadow: 0 0 0 3px rgba(17, 17, 16, 0.06);
+}

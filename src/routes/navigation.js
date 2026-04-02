@@ -1,10 +1,5 @@
 export const adminMenus = [
   {
-    label: '대시보드',
-    items: [],
-    path: '/admin',
-  },
-  {
     label: '운영 관리',
     items: [
       { label: '예약내역 관리', path: '/admin/reservations' },
@@ -20,7 +15,7 @@ export const adminMenus = [
       { label: '약관 관리', path: '/admin/terms' },
       { label: '공지사항 관리', path: '/admin/notice' },
       { label: 'FAQ 관리', path: '/admin/faq' },
-      { label: '사진 type 설정', path: '/admin/photo-types' },
+      { label: '사진 타입 설정', path: '/admin/photo-types' },
     ],
   },
 ]
@@ -31,7 +26,7 @@ export const publicMenus = [
     items: [
       { label: '공간 & 시설 안내', id: 'facility' },
       { label: '포트폴리오 갤러리', id: 'gallery' },
-      { label: '공지사항 & FAQ', id: 'notice' },
+      { label: '공지사항', id: 'notice' },
       { label: 'FAQ', id: 'faq' },
     ],
     path: '/',
@@ -40,7 +35,6 @@ export const publicMenus = [
     label: '서비스',
     items: [
       { label: '촬영 종류 안내', path: '/service/type' },
-      { label: '요금표', path: '/service/pricing' },
       { label: '의상 & 소품 안내', path: '/service/costume' },
     ],
   },

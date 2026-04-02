@@ -16,10 +16,6 @@ export const publicRouteConfigs = [
     component: ShootingTypePage,
   },
   {
-    path: '/service/pricing',
-    component: PricingPage,
-  },
-  {
     path: '/service/costume',
     component: ServiceCostumePage,
   },
