@@ -198,6 +198,18 @@
   flex-shrink: 0;
 }
 
+.legendDotBlocked {
+  background: var(--ink-faint);
+}
+
+.legendDotSelected {
+  background: var(--ink);
+}
+
+.legendDotHoliday {
+  background: #d85a5a;
+}
+
 /* 휴일/휴무 */
 .holiday {
   color: #d85a5a;

@@ -269,7 +269,6 @@ const PhotoTypeSettingPage = () => {
           <article className={styles.heroStatCard}>
             <span className={styles.statLabel}>전체 유형</span>
             <strong className={styles.statValue}>{shootingTypes.length}개</strong>
-            <p className={styles.statHelper}>현재 등록된 촬영 상품 수입니다.</p>
           </article>
         </div>
       </div>

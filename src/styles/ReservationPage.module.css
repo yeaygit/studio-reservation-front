@@ -353,6 +353,22 @@
   transform: translateY(-1px);
 }
 
+.slotSelectedDisabled {
+  color: #fff !important;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.16) 0 6px,
+      rgba(255, 255, 255, 0.04) 6px 12px
+    ),
+    var(--ink) !important;
+  border-color: var(--ink) !important;
+  cursor: not-allowed;
+  opacity: 1;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
 .slotDisabled {
   color: var(--ink-faint);
   background: var(--bg);
@@ -490,11 +506,17 @@
 
 .termsRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   padding: 14px 16px;
   background: var(--accent-soft);
   border-radius: 10px;
+}
+
+.termsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .checkbox {
@@ -515,6 +537,40 @@
   background: var(--ink);
   border-color: var(--ink);
   color: #fff;
+}
+
+.termsContent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.termsTitle {
+  font-size: 13.5px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+.termsBadge {
+  flex-shrink: 0;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.termsBadgeRequired {
+  background: rgba(216, 90, 90, 0.12);
+  color: #b84d4d;
+}
+
+.termsBadgeOptional {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ink-faint);
 }
 
 .termsText {

@@ -212,7 +212,6 @@ const FaqManagementPage = () => {
           <article className={styles.metricCard}>
             <span className={styles.metricLabel}>전체 FAQ</span>
             <strong className={styles.metricValue}>{faqs.length}건</strong>
-            <p className={styles.metricHelper}>현재 등록된 질문 수입니다.</p>
           </article>
         </div>
       </div>

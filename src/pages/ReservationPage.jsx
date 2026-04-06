@@ -19,13 +19,24 @@ const INITIAL_FORM = {
   phone: '',
   visitPath: '',
   requestMessage: '',
-  termsAgreed: false,
+  agreedTerms: [],
 }
 
 const ReservationPage = () => {
   const [mode, setMode] = useState(STEPS[0])
   const [form, setForm] = useState(INITIAL_FORM)
-  const [typeList, setTypeList] = useState([]);
+  const [typeList, setTypeList] = useState([])
+  const [termsList, setTermsList] = useState([])
+
+  const [termsErrorMessage, setTermsErrorMessage] = useState('')
+  const [isSubmittingReservation, setIsSubmittingReservation] = useState(false)
+  const [submitErrorMessage, setSubmitErrorMessage] = useState('')
+  const [createdReservationId, setCreatedReservationId] = useState(null)
+
+  const requiredTerms = termsList.filter((terms) => terms.isRequired)
+  const hasAgreedAllRequiredTerms =
+    requiredTerms.length === 0 ||
+    requiredTerms.every((terms) => form.agreedTerms.includes(terms.id))
 
   const getNextBlockMessage = () => {
     const phoneDigits = form.phone.replace(/\D/g, '')
@@ -42,17 +53,21 @@ const ReservationPage = () => {
     if (mode === 'INFO') {
       if (!form.name.trim()) return '이름을 입력해 주세요.'
       if (phoneDigits.length < 10) return '연락처를 입력해 주세요.'
-      if (!form.visitPath) return '방문 경로를 선택해 주세요.'
-      if (!form.termsAgreed) return '이용약관에 동의해 주세요.'
+      if (termsErrorMessage) return termsErrorMessage
+      if (!hasAgreedAllRequiredTerms) return '필수 약관에 동의해 주세요.'
     }
 
     return ''
   }
 
   const nextBlockMessage = getNextBlockMessage()
-  const isNextDisabled = Boolean(nextBlockMessage)
+  const isNextDisabled = Boolean(nextBlockMessage) || isSubmittingReservation
 
   const clickPrevMode = () => {
+    if (mode === 'CONFIRM' || isSubmittingReservation) {
+      return
+    }
+
     const currentIndex = STEPS.indexOf(mode)
 
     if (currentIndex > 0) {
@@ -60,8 +75,61 @@ const ReservationPage = () => {
     }
   }
 
-  const clickNextMode = () => {
+  const loadShootingTypes = async () => {
+    try {
+      const response = await customAxios.get('/v1/settings/shooting-types')
+      setTypeList(response.data)
+    } catch (error) {
+      console.log(error?.response?.data?.errorMessage)
+    }
+  }
+
+  const loadTerms = async () => {
+    setTermsErrorMessage('')
+
+    try {
+      const response = await customAxios.get('/v1/terms')
+      setTermsList(Array.isArray(response.data) ? response.data : [])
+    } catch (error) {
+      setTermsList([])
+      setTermsErrorMessage(error?.response?.data?.errorMessage || '약관 정보를 불러오지 못했습니다.')
+    }
+  }
+
+  const submitReservation = async () => {
+    setIsSubmittingReservation(true)
+    setSubmitErrorMessage('')
+
+    try {
+      const response = await customAxios.post('/v1/reservations', {
+        type: form.type,
+        date: form.date,
+        headcount: form.headcount,
+        startTime: form.startTime,
+        endTime: form.endTime,
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        visitPath: form.visitPath || null,
+        requestMessage: form.requestMessage.trim() || null,
+        agreedTerms: form.agreedTerms,
+      })
+
+      setCreatedReservationId(response.data?.reservationId ?? null)
+      setMode('CONFIRM')
+    } catch (error) {
+      setSubmitErrorMessage(error?.response?.data?.errorMessage || '예약 요청에 실패했습니다.')
+    } finally {
+      setIsSubmittingReservation(false)
+    }
+  }
+
+  const clickNextMode = async () => {
     if (isNextDisabled) {
+      return
+    }
+
+    if (mode === 'INFO') {
+      await submitReservation()
       return
     }
 
@@ -70,23 +138,18 @@ const ReservationPage = () => {
     if (currentIndex < STEPS.length - 1) {
       setMode(STEPS[currentIndex + 1])
     }
-
-    console.log(form)
   }
 
-  const loadShootingTypes = async() => {
-    try{
-      const res = await customAxios.get(`/v1/settings/shooting-types`)
-      setTypeList(res.data)
-      return res.data
-    }catch(err){
-      console.log(err.response.data.errorMessage)
-    }
-  };
-
   useEffect(() => {
-    void loadShootingTypes();
+    void loadShootingTypes()
+    void loadTerms()
   }, [])
+
+  const nextButtonLabel = isSubmittingReservation
+    ? '예약 중...'
+    : mode === 'INFO'
+      ? '예약하기'
+      : '다음'
 
   return (
     <div className={styles.layout}>
@@ -100,31 +163,42 @@ const ReservationPage = () => {
           <ReservationSchedule form={form} setForm={setForm} typeList={typeList} />
         )}
 
-        {mode === 'INFO' && <ReservationInfo form={form} setForm={setForm} />}
-
-        {mode === 'CONFIRM' && <ReservationConfirm />}
-      </div>
-
-      {nextBlockMessage && <p className={styles.stepMessage}>{nextBlockMessage}</p>}
-
-      <div className={`${styles.btnGroup} ${mode === 'TYPE' ? styles.btnGroupEnd : ''}`}>
-        {mode !== 'TYPE' && (
-          <button type="button" className={styles.prevBtn} onClick={clickPrevMode}>
-            <ChevronLeft size={16} />
-            이전
-          </button>
+        {mode === 'INFO' && (
+          <ReservationInfo
+            form={form}
+            setForm={setForm}
+            termsList={termsList}
+          />
         )}
 
-        <button
-          type="button"
-          className={styles.nextBtn}
-          onClick={clickNextMode}
-          disabled={isNextDisabled}
-        >
-          <ChevronRight size={16} />
-          다음
-        </button>
+        {mode === 'CONFIRM' && (
+          <ReservationConfirm reservationId={createdReservationId} />
+        )}
       </div>
+
+      {submitErrorMessage && <p className={styles.stepMessage}>{submitErrorMessage}</p>}
+      {!submitErrorMessage && nextBlockMessage && <p className={styles.stepMessage}>{nextBlockMessage}</p>}
+
+      {mode !== 'CONFIRM' && (
+        <div className={`${styles.btnGroup} ${mode === 'TYPE' ? styles.btnGroupEnd : ''}`}>
+          {mode !== 'TYPE' && (
+            <button type="button" className={styles.prevBtn} onClick={clickPrevMode}>
+              <ChevronLeft size={16} />
+              이전
+            </button>
+          )}
+
+          <button
+            type="button"
+            className={styles.nextBtn}
+            onClick={() => void clickNextMode()}
+            disabled={isNextDisabled}
+          >
+            <ChevronRight size={16} />
+            {nextButtonLabel}
+          </button>
+        </div>
+      )}
     </div>
   )
 }
