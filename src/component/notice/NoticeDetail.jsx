@@ -7,13 +7,6 @@ import {
 } from 'lucide-react'
 import styles from '../../styles/FaqManagementPage.module.css'
 
-const getPopupPeriodLabel = (notice) => {
-  if (notice.popupStartDate && notice.popupEndDate) {
-    return `${notice.popupStartDate} ~ ${notice.popupEndDate}`
-  }
-
-  return '기간 미지정'
-}
 
 const NoticeDetail = ({ notice, onEdit, onDelete }) => {
   return (
