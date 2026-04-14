@@ -199,6 +199,10 @@ VITE_API_URL=/api
 
 별도 백엔드 주소를 사용해야 한다면 루트 기준 `.env.local` 등에 `VITE_API_URL`을 지정해서 사용할 수 있습니다.
 
+## 배포 주소
+
+- 운영 프론트 URL: [https://studio-reservation-yeaygits-projects.vercel.app](https://studio-reservation-yeaygits-projects.vercel.app)
+
 ## 배포 메모
 
 - 개발 환경: Vite proxy로 `/api` -> `http://localhost:8080`
@@ -233,5 +237,4 @@ src
 ├─ types
 └─ utils
 ```
-
 
