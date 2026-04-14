@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://studio-reservation-back.railway.internal/api/:path*"
+      "destination": "https://studio-reservation-back-production.up.railway.app/api/:path*"
     }
   ]
 }
