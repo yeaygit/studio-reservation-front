@@ -13,6 +13,7 @@ import type {
   ReservationTypeItem,
 } from '../../types/reservation'
 import { getApiErrorMessage } from '../../utils/apiError'
+import { normalizePhoneDigits } from '../../utils/formatSetting'
 
 const STEPS: ReservationStep[] = ['TYPE', 'SCHEDULE', 'INFO', 'CONFIRM']
 
@@ -115,7 +116,7 @@ const ReservationPage = () => {
         startTime: form.startTime,
         endTime: form.endTime,
         name: form.name.trim(),
-        phone: form.phone.trim(),
+        phone: normalizePhoneDigits(form.phone),
         visitPath: form.visitPath || null,
         requestMessage: form.requestMessage.trim() || null,
         agreedTerms: form.agreedTerms,

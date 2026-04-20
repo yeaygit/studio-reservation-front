@@ -2,24 +2,17 @@ import type { ChangeEvent } from 'react'
 import styles from '../../styles/ReservationPage.module.css'
 import { Check } from 'lucide-react'
 import type { ReservationInfoProps } from '../../types/reservation'
+import { formatPhoneNumber, normalizePhoneDigits } from '../../utils/formatSetting'
 
 const VISIT_PATH_OPTIONS = [
   { value: '', label: '선택해 주세요' },
-  { value: 'instagram', label: '인스타그램' },
-  { value: 'naver', label: '네이버 검색' },
-  { value: 'kakao', label: '카카오톡' },
-  { value: 'friend', label: '지인 추천' },
-  { value: 'revisit', label: '재방문' },
-  { value: 'other', label: '기타' },
+  { value: 'INSTAGRAM', label: '인스타그램' },
+  { value: 'NAVER', label: '네이버 검색' },
+  { value: 'KAKAO', label: '카카오톡' },
+  { value: 'FRIEND', label: '지인 추천' },
+  { value: 'REVISIT', label: '재방문' },
+  { value: 'OTHER', label: '기타' },
 ]
-
-const formatPhone = (value: string): string => {
-  const digits = value.replace(/\D/g, '').slice(0, 11)
-
-  if (digits.length < 4) return digits
-  if (digits.length < 8) return `${digits.slice(0, 3)}-${digits.slice(3)}`
-  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`
-}
 
 const ReservationInfo = ({ form, setForm, termsList }: ReservationInfoProps) => {
   const changeFormValue = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -34,7 +27,7 @@ const ReservationInfo = ({ form, setForm, termsList }: ReservationInfoProps) => 
   const changePhoneFormat = (event: ChangeEvent<HTMLInputElement>) => {
     setForm((previous) => ({
       ...previous,
-      phone: formatPhone(event.target.value),
+      phone: normalizePhoneDigits(event.target.value),
     }))
   }
 
@@ -82,7 +75,7 @@ const ReservationInfo = ({ form, setForm, termsList }: ReservationInfoProps) => 
               className={styles.fieldInput}
               type="tel"
               name="phone"
-              value={form.phone}
+              value={formatPhoneNumber(form.phone)}
               onChange={changePhoneFormat}
               placeholder="010-0000-0000"
               autoComplete="tel"

@@ -81,3 +81,21 @@ export interface ReservationScheduleProps {
 export interface ReservationConfirmProps {
   reservationId: number | string | null
 }
+
+export type ReservationStatusCode = 'PENDING' | 'CONFIRMED' | 'CANCELLED'
+
+export interface ReservationAdminItem {
+  reservationId: number
+  shootingTypeCode: string
+  shootingTypeLabel: string
+  date: string
+  startTime: string
+  endTime: string
+  headCount: number
+  name: string
+  phone: string
+  visitPath?: string | null
+  requestMessage?: string | null
+  status: ReservationStatusCode
+  createdAt?: string | null
+}

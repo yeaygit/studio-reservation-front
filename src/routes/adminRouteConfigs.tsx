@@ -1,4 +1,5 @@
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
+import ReservationHistoryList from '../pages/admin/ReservationHistoryList.tsx'
 import FaqManagementPage from '../pages/faq/FaqManagementPage.tsx'
 import NoticeManagementPage from '../pages/notice/NoticeManagementPage'
 import ClosedDaysPage from '../pages/setting/ClosedDaysPage'
@@ -19,7 +20,7 @@ export const adminRouteConfigs: AppRouteConfig[] = [
     path: '/admin/reservations',
     label: '예약내역 관리',
     description: '예약 목록과 상태, 고객 요청 사항을 관리합니다.',
-    component: AdminDashboardPage,
+    component: ReservationHistoryList,
     props: {
       title: '예약내역 관리',
       description: '예약 목록과 상태, 고객 요청 사항을 관리합니다.',
